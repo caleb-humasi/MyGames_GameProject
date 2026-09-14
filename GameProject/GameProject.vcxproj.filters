@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Arquivos de Origem">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Arquivos de Recurso">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="The game">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="The game\Animation">
+      <UniqueIdentifier>{ee915040-f417-4498-8655-0b1b93b0cfdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\GeneralGameSettings">
+      <UniqueIdentifier>{641820dd-c0d7-483a-b2be-f4e7b686568e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement">
+      <UniqueIdentifier>{eee38bf9-cf95-4f50-b250-24d20349dd8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Player">
+      <UniqueIdentifier>{37edf010-13fb-4661-b656-a425220284c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Player\SubWeapon">
+      <UniqueIdentifier>{1afc5e78-655f-45cb-a052-943f0c90bf32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Enemy1">
+      <UniqueIdentifier>{507eb221-e87f-4769-9516-ab207becd7b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Enemy2">
+      <UniqueIdentifier>{f679a35f-309d-4be7-beb9-f0c14ab41e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Enemy3">
+      <UniqueIdentifier>{a96fdfd5-59ac-4d7e-b8d0-8244037fca8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Enemy4">
+      <UniqueIdentifier>{157bf835-8d92-4978-8e11-605ee7204abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Enemy5">
+      <UniqueIdentifier>{a013f499-727c-43d1-9b0d-c47c606b78d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\EntityProperties">
+      <UniqueIdentifier>{9c34c4b4-7a06-41d2-ae80-068904671f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\Renderization">
+      <UniqueIdentifier>{3c8edf36-3bd3-483e-9280-49a13f5be784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="The game\EntityManagement\Dragon">
+      <UniqueIdentifier>{728f0391-c6b8-48d1-a614-a72972cac528}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameProject.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>The game\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>The game\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationsSelector.cpp">
+      <Filter>The game\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Cross.cpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Crow.cpp">
+      <Filter>The game\EntityManagement\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingEye.cpp">
+      <Filter>The game\EntityManagement\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonBunny.cpp">
+      <Filter>The game\EntityManagement\Enemy5</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>The game\EntityManagement\EntityProperties</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeapon_Manager.cpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneGolem.cpp">
+      <Filter>The game\EntityManagement\Enemy4</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>The game\EntityManagement\Enemy4</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityFactory.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyFire.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Candlestick.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>The game\EntityManagement\EntityProperties</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>The game\EntityManagement\Enemy1</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>The game</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeaponItem.cpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="StairManager.cpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSpace.cpp">
+      <Filter>The game</Filter>
+    </ClCompile>
+    <ClCompile Include="VisibilityManager.cpp">
+      <Filter>The game\Renderization</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>The game\EntityManagement\Dragon</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.hpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.hpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>The game\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFactory.hpp">
+      <Filter>The game\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationsSelector.hpp">
+      <Filter>The game\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>The game\EntityManagement\EntityProperties</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.hpp">
+      <Filter>The game\EntityManagement\EntityProperties</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.hpp">
+      <Filter>The game\GeneralGameSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.hpp">
+      <Filter>The game\GeneralGameSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.hpp">
+      <Filter>The game\GeneralGameSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.hpp">
+      <Filter>The game\GeneralGameSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.hpp">
+      <Filter>The game\EntityManagement\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.hpp">
+      <Filter>The game\EntityManagement\EntityProperties</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.hpp">
+      <Filter>The game</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeapon_Manager.hpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.hpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.hpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Cross.hpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.hpp">
+      <Filter>The game\EntityManagement\Player\SubWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Candlestick.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyFire.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Crow.hpp">
+      <Filter>The game\EntityManagement\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingEye.hpp">
+      <Filter>The game\EntityManagement\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.hpp">
+      <Filter>The game\EntityManagement\Enemy4</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneGolem.hpp">
+      <Filter>The game\EntityManagement\Enemy4</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonBunny.hpp">
+      <Filter>The game\EntityManagement\Enemy5</Filter>
+    </ClInclude>
+    <ClInclude Include="Sounds.hpp">
+      <Filter>The game\GeneralGameSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.hpp">
+      <Filter>The game\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeaponItem.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.hpp">
+      <Filter>The game\EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Stair.hpp">
+      <Filter>The game</Filter>
+    </ClInclude>
+    <ClInclude Include="StairManager.hpp">
+      <Filter>The game\EntityManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSpace.hpp">
+      <Filter>The game</Filter>
+    </ClInclude>
+    <ClInclude Include="VisibilityManager.hpp">
+      <Filter>The game\Renderization</Filter>
+    </ClInclude>
+    <ClInclude Include="TileBinding.hpp">
+      <Filter>The game</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.hpp">
+      <Filter>The game\EntityManagement\Dragon</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
