@@ -20,6 +20,7 @@ public:
 private:
 	bool isMoving;
 	float deltaTime;
+	int moves[7] = { 0,1,3,1,0,-1,-1 };
 	const float speed;
 	World* gameSpace;
 	AnimationSelector animationSelector;
@@ -27,7 +28,7 @@ private:
 	TimeManager timeManager;
 	sf::Vector2f desiredPosition;
 	const sf::Vector2f* playerPosition;
-	sf::Sprite mainSprite;
+	sf::Sprite mainSprite, headSprite;
 
 	void movement();
 	void animate();

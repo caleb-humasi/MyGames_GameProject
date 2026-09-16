@@ -117,4 +117,8 @@ public:
 		animationSelector.addAnimation(Animation(0.15f, sf::IntRect({ 16*2,0 }, { 16, 16 }), 3));
 		animationSelector.getAnimation(1).setIsContinuous(false);
 	}
+	static void setDragon(AnimationSelector& animationSelector) {
+		animationSelector.addAnimation(Animation(0.06f, sf::IntRect({ 0,0 }, { 134, 46 }), 7));
+		animationSelector.addAnimation(Animation(0.05f, sf::IntRect({ 0,46 }, { 134, 46 }), 2));
+	}
 };

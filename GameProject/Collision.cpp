@@ -7,10 +7,10 @@ void CollisionManager::collision(){
     sf::FloatRect nextPos = sf::FloatRect(*desiredPosition, rect->size);
     sf::FloatRect rectP = *rect;
     for (auto& e : *box_tiles) {
+        if (!activeCollision) break;
         sf::FloatRect rectT(e.getRect());
         if (e.getTag() != "null" && rectT.findIntersection(nextPos)) {
             intersectedTiles.push_back(&e);
-            if (!activeCollision) break;
             if (e.getTag() == "active") {
                 if (rectP.position.y < rectT.position.y &&
                     rectP.position.y + rectP.size.y < rectT.position.y + rectT.size.y &&

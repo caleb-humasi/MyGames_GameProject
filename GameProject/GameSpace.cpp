@@ -18,6 +18,8 @@ World::World(sf::RenderWindow& g_window, sf::View& _view, float& g_deltaTime) :
 
 void World::start() {
 	entities.push_back(std::make_shared<Player>(*this, *view));
+	entities.push_back(std::make_shared<Dragon>(*this));
+	entities[1]->setPosition(sf::Vector2f{ 200.f,100.f });
 	player = getPlayer();
 	levelManager.drawLevel(RespectiveLevel::STAGE_1);
 	uint16_t i(0), j(0);

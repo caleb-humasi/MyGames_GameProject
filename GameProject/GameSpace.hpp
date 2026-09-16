@@ -8,6 +8,7 @@
 #include "FlyingEye.hpp"
 #include "StoneGolem.hpp"
 #include "DemonBunny.hpp"
+#include "Dragon.hpp"
 #include "Candlestick.hpp"
 #include "SubWeaponItem.hpp"
 #include "VisibilityManager.hpp"

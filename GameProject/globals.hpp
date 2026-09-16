@@ -24,6 +24,9 @@ namespace gb {
 	namespace demon_bunny {
 		constexpr sf::Vector2f size = { 8.f, 10.f };
 	}
+	namespace dragon {
+		constexpr sf::Vector2f size = { 72.f, 12.f };
+	}
 	namespace candlestick {
 		constexpr sf::Vector2f size = { 8.f, 14.f };
 	}

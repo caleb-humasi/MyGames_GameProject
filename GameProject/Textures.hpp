@@ -28,6 +28,7 @@ enum class Texture {
 	DARK_STAIRS,
 	BACKGROUND_STAGE_1,
 	BLUE_DRAGON,
+	HEAD_DRAGON,
 	NULL_TEXTURE
 };
 
@@ -61,7 +62,8 @@ public:
 		hasLoaded[21] = list_texture[(int)Texture::DARK_STAIRS         ].loadFromFile("res/ground/darkStairs.png");
 		hasLoaded[22] = list_texture[(int)Texture::BACKGROUND_STAGE_1  ].loadFromFile("res/stages/background_stage1.png");
 		hasLoaded[23] = list_texture[(int)Texture::BLUE_DRAGON         ].loadFromFile("res/enemies/dragon/dragon.png");
-		hasLoaded[24] = list_texture[(int)Texture::NULL_TEXTURE        ].loadFromFile("res/ground/tile_null.png");
+		hasLoaded[24] = list_texture[(int)Texture::HEAD_DRAGON         ].loadFromFile("res/enemies/dragon/dragon_head.png");
+		hasLoaded[25] = list_texture[(int)Texture::NULL_TEXTURE        ].loadFromFile("res/ground/tile_null.png");
 
 		for (bool& e : hasLoaded) {
 			if (e == false) {
