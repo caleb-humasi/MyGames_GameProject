@@ -29,7 +29,7 @@ public:
 
 	CollisionManager* getCollisionManager() final { return &collisionManager; }
 private:
-	bool isMoving;
+	bool isChasing;
 	float passedTime;
 	float deltaTime;
 	float angle;

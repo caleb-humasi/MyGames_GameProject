@@ -10,7 +10,7 @@ FlyingEye::FlyingEye(World& _gameSpace) :
 	accelerationTail(0.050f),
 	initPosTail(60.f),
 	finalPosTail(120.f),
-	isMoving(false),
+	isChasing(false),
 	gameSpace(&_gameSpace),
 	playerPosition(&gameSpace->getPlayer()->getPosition()),
 	collisionManager(rectEntity, desiredPosition),
@@ -121,8 +121,8 @@ void FlyingEye::movement() {
 	sf::Vector2f direcaoOlho = { cosf(angle), sinf(angle) };
 	float distance = sqrtf(deltaDistance.x * deltaDistance.x + deltaDistance.y * deltaDistance.y);
 
-	if (distance < 50.f) isMoving = true;
-	if (!isMoving) return;
+	if (distance < 50.f) isChasing = true;
+	if (!isChasing) return;
 
 	sf::Vector2f nDelta = deltaDistance * (distance > 0 ? 1 / distance : 0);
 
@@ -131,7 +131,7 @@ void FlyingEye::movement() {
 	desiredPosition = rectEntity.position + speed * sf::Vector2f(cosf(angle), sinf(angle)) * deltaTime * gb::FPS;
 }
 void FlyingEye::animate() {
-	if (isMoving) {
+	if (isChasing) {
 		animationSelector.setAnimationID(0);
 	}
 	else {

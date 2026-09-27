@@ -18,7 +18,7 @@ public:
 
 	CollisionManager* getCollisionManager() final { return &collisionManager; }
 private:
-	bool isMoving;
+	bool isChasing;
 	float deltaTime;
 	const float speed;
 	World* gameSpace;

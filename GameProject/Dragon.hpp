@@ -2,6 +2,7 @@
 #include "Enemy.hpp"
 #include "AnimationsSelector.hpp"
 #include "Time.hpp"
+#include <random>
 
 class World;
 class Dragon : public Enemy {
@@ -18,10 +19,17 @@ public:
 
 	CollisionManager* getCollisionManager() final { return &collisionManager; }
 private:
-	bool isMoving;
+	enum class State {
+		FLYING,
+		ATTACKING,
+		DASHING,
+		DAMAGED
+	};
+	bool isChasing, enraged, onRight, isDashing;
 	float deltaTime;
 	int moves[7] = { 0,1,3,1,0,-1,-1 };
-	const float speed;
+	const float speed, dashSpeed;
+	State state;
 	World* gameSpace;
 	AnimationSelector animationSelector;
 	CollisionManager collisionManager;
@@ -31,6 +39,7 @@ private:
 	sf::Sprite mainSprite, headSprite;
 
 	void movement();
+	void dashing();
 	void animate();
 	void collision();
 };

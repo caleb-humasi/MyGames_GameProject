@@ -4,7 +4,7 @@
 Crow::Crow(World& _gameSpace) :
 	deltaTime(0.f),
 	speed(0.55f),
-	isMoving(false),
+	isChasing(false),
 	gameSpace(&_gameSpace),
 	playerPosition(&gameSpace->getPlayer()->getPosition()),
 	collisionManager(rectEntity, desiredPosition),
@@ -47,8 +47,8 @@ void Crow::render(sf::RenderWindow& window) {
 void Crow::movement() {
 	sf::Vector2f deltaDistance = *playerPosition + gb::player::size * gb::SCALE - getCenter();
 	float distance = sqrtf(deltaDistance.x * deltaDistance.x + deltaDistance.y * deltaDistance.y);
-	if (distance < 40.f) isMoving = true;
-	if (!isMoving) return;
+	if (distance < 40.f) isChasing = true;
+	if (!isChasing) return;
 	float cosX = deltaDistance.x / distance, sinX = deltaDistance.y / distance;
 
 	desiredPosition = rectEntity.position + sf::Vector2f(cosX, sinX) * speed * deltaTime * gb::FPS;
@@ -56,7 +56,7 @@ void Crow::movement() {
 	else if (deltaDistance.x < 0) { mainSprite.setScale({ gb::SCALE, gb::SCALE }); }
 }
 void Crow::animate() {
-	if (isMoving) {
+	if (isChasing) {
 		animationSelector.setAnimationID(0);
 	}
 	else {

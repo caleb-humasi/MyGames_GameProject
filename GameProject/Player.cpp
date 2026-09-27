@@ -161,10 +161,10 @@ void Player::updatePlayerView(char direction, bool isGrounded){
 }
 
 void Player::attack(){
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num1)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::KNIFE);
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num2)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::AXE);
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num3)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::CROSS);
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num4)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::HOLY_WATER);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num1)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::KNIFE);
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num2)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::AXE);
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num3)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::CROSS);
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num4)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::HOLY_WATER);
 	
 	if (isInvencible) return;
 	if ((isAttacking || isThrowingSubWeapon) && !animationManager.getAnimSelector((int)player::AnimLayer::BODY).getInAction()) {
