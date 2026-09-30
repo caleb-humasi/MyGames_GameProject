@@ -12,7 +12,7 @@ namespace player {
 		SQUAT_ATTACK,
 		SQUAT_THROWING_SUBWEAPON
 	};
-	enum class AnimLayer {
+	enum class CorrespondingLayer {
 		BODY,
 		WHIP
 	};
@@ -42,5 +42,32 @@ namespace crow {
 	enum class EntityState {
 		FLYING,
 		STANDING
+	};
+}
+namespace dragon {
+	enum class EntityState {
+		FLYING,
+		DASHING,
+		ATTACKING,
+		DAMAGED
+	};
+	enum class CorrespondingLayer {
+		BODY,
+		HEAD,
+		FIRE
+	};
+	enum class CorrespondingHeadAnimation {
+		NORMAL,
+		FIRE_BREATHING,
+		NONE
+	};
+	enum class CorrespondigFireAnimation {
+		FIRING,
+		NONE
+	};
+	enum class CorrespondingBodyAnimation {
+		FLYING,
+		DASHING,
+		DAMAGED
 	};
 }

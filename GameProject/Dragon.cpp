@@ -5,7 +5,7 @@ Dragon::Dragon(World& _gameSpace) :
 	deltaTime(0.f),
 	speed(0.55f),
 	dashSpeed(speed * 7.5f),
-	state(State::FLYING),
+	state(dragon::EntityState::ATTACKING),
 	isChasing(true),
 	enraged(false),
 	onRight(true),
@@ -13,17 +13,22 @@ Dragon::Dragon(World& _gameSpace) :
 	gameSpace(&_gameSpace),
 	playerPosition(&gameSpace->getPlayer()->getPosition()),
 	collisionManager(rectEntity, desiredPosition),
-	animationSelector(mainSprite),
 	mainSprite(gameSpace->getTexture(Texture::BLUE_DRAGON)),
-	headSprite(gameSpace->getTexture(Texture::HEAD_DRAGON)){
+	headSprite(gameSpace->getTexture(Texture::DRAGON_HEAD)),
+	dragon_fire(gameSpace->getTexture(Texture::DRAGON_FIRE)){
 
 	rectEntity.size = sf::Vector2f{ 72.f, 10.f };
-	AnimationFactory::setDragon(animationSelector);
+	//SETTING SPRITE SECTION
 	mainSprite.setTextureRect(sf::IntRect({ 0,0 }, { 134, 46 }));
 	mainSprite.setOrigin({ mainSprite.getGlobalBounds().size.x / 2.f, mainSprite.getGlobalBounds().size.y / 2.f });
-	mainSprite.setScale({ gb::SCALE, gb::SCALE });
+
 	headSprite.setTextureRect(sf::IntRect({ 0,0 }, {32, 11}));
 	headSprite.setOrigin({ headSprite.getGlobalBounds().size.x / 2.f, headSprite.getGlobalBounds().size.y / 2.f });
+
+	dragon_fire.setTextureRect(sf::IntRect({ 0,0 }, { 28,28 }));
+	mainSprite.setOrigin({ mainSprite.getGlobalBounds().size.x / 2.f, mainSprite.getGlobalBounds().size.y / 2.f });
+
+	AnimationFactory::setDragon(animManager, mainSprite, headSprite, dragon_fire);
 	nameEntity = "E_Dragon";
 }
 
@@ -44,20 +49,24 @@ void Dragon::firstUpdate(float dt) {
 	dashing();
 	movement();
 	animate();
-	animationSelector.update(dt);
+	animManager.update(dt);
 }
 void Dragon::finalUpdate() {
 	timeManager.update(deltaTime);
 	collision();
-	mainSprite.setPosition(rectEntity.position + gb::dragon::size / 2.f + sf::Vector2f{ 0, (float)moves[animationSelector.getAnimation().getFrame() - 1] });
+	mainSprite.setPosition(rectEntity.position + gb::dragon::size / 2.f + sf::Vector2f{ 0, (float)moves[animManager.getAnimSelector(0).getAnimation().getFrame() - 1] });
 	headSprite.setPosition(mainSprite.getPosition() + sf::Vector2f(-27.f * mainSprite.getScale().x, -3.5f));
+	dragon_fire.setPosition(mainSprite.getPosition() + sf::Vector2f(-57.f * mainSprite.getScale().x, -6.5f));
 	headSprite.setScale(mainSprite.getScale());
+	dragon_fire.setScale(mainSprite.getScale());
 }
 
 void Dragon::render(sf::RenderWindow& window) {
 	window.draw(mainSprite);
-	if(state == State::FLYING)
+	if(state != dragon::EntityState::DASHING)
 		window.draw(headSprite);
+	if(state == dragon::EntityState::ATTACKING)
+		window.draw(dragon_fire);
 }
 
 void Dragon::movement() {
@@ -65,7 +74,7 @@ void Dragon::movement() {
 	float distance = sqrtf(deltaDistance.x * deltaDistance.x + deltaDistance.y * deltaDistance.y);
 	if (distance < 200.f) isChasing = true;
 	desiredPosition = rectEntity.position;
-	if (state == State::DASHING) {
+	if (state == dragon::EntityState::DASHING) {
 		isChasing = false;
 		if (onRight) {
 			desiredPosition.x += dashSpeed * gb::FPS * deltaTime;
@@ -80,7 +89,7 @@ void Dragon::movement() {
 	if (!isChasing) return;
 	float cosX = deltaDistance.x / distance, sinX = deltaDistance.y / distance;
 
-	desiredPosition = rectEntity.position + sf::Vector2f(cosX, sinX) * speed * deltaTime * gb::FPS;
+	desiredPosition = rectEntity.position + sf::Vector2f(cosX, sinX) * (state == dragon::EntityState::ATTACKING ? speed * 1.5f: speed) * deltaTime * gb::FPS;
 	if (deltaDistance.x > 0) { mainSprite.setScale({ -gb::SCALE, gb::SCALE }); }
 	else if (deltaDistance.x < 0) { mainSprite.setScale({ gb::SCALE, gb::SCALE }); }
 }
@@ -89,7 +98,7 @@ void Dragon::dashing(){
 	static std::mt19937 gen(std::random_device{}());
 	std::bernoulli_distribution dist(0.5f);
 
-	if (state == State::DASHING) {
+	if (state == dragon::EntityState::DASHING) {
 		float yOffSet1 = dist(gen) ? 0.f : -12.f;
 		float yOffSet2 = dist(gen) ? 0.f : -8.f;
 		if (onRight && !isDashing) {
@@ -113,10 +122,7 @@ void Dragon::dashing(){
 	}
 }
 void Dragon::animate() {
-	if (state == State::FLYING)
-		animationSelector.setAnimationID(0);
-	else if (state == State::DASHING)
-		animationSelector.setAnimationID(1);
+	animManager.setState((int)state);
 }
 void Dragon::collision() {
 	std::vector<std::shared_ptr<Entity>>* entities = &gameSpace->getEntities();

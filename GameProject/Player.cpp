@@ -167,7 +167,7 @@ void Player::attack(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num4)) subWeapon_Manager.setSubWeapon(SubWeapon_Manager::Weapon::HOLY_WATER);
 	
 	if (isInvencible) return;
-	if ((isAttacking || isThrowingSubWeapon) && !animationManager.getAnimSelector((int)player::AnimLayer::BODY).getInAction()) {
+	if ((isAttacking || isThrowingSubWeapon) && !animationManager.getAnimSelector((int)player::CorrespondingLayer::BODY).getInAction()) {
 		animationManager.setState((int)player::EntityState::WALKING);
 		isAttacking = false;
 		isThrowingSubWeapon = false;
@@ -227,7 +227,7 @@ void Player::updatePlayerState(){
 
 void Player::updateWhipRect() {
 	whip_rect.size = (isAttacking &&
-		animationManager.getAnimSelector((int)player::AnimLayer::BODY).getAnimation().getFrame() >= 4)
+		animationManager.getAnimSelector((int)player::CorrespondingLayer::BODY).getAnimation().getFrame() >= 4)
 		? sf::Vector2f(17.f * gb::SCALE, 3 * gb::SCALE) : sf::Vector2f(0.f, 0.f);
 	whip_rect.position = rectEntity.position +
 		sf::Vector2f(mainSprite.getScale().x > 0 ? 6.f * gb::SCALE : -whip_rect.size.x - 3 * gb::SCALE, 3 * gb::SCALE);

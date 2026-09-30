@@ -26,6 +26,7 @@ namespace gb {
 	}
 	namespace dragon {
 		constexpr sf::Vector2f size = { 72.f, 12.f };
+		constexpr sf::Vector2f fire_size = { 32.f, 32.f };
 	}
 	namespace candlestick {
 		constexpr sf::Vector2f size = { 8.f, 14.f };

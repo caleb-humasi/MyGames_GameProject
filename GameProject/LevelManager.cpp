@@ -96,7 +96,6 @@ void LevelManager::drawLevel(RespectiveLevel level) {
 		tiles->reserve(ltiles.size());
 		for (int y = 0; y < ltiles.size(); ++y) {
 			const ldtk::Tile& e = ltiles[y];
-			std::cout << e.tileId << '\n';
 			std::string tile_type = "";
 			if (e.tileId == 0) {
 				tiles->push_back(Tile(textureManager->getTexture(Texture::TILE_DARK_BRICK), y));

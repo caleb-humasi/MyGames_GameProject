@@ -1,8 +1,9 @@
 #pragma once
 #include "Enemy.hpp"
-#include "AnimationsSelector.hpp"
+#include "AnimationManager.hpp"
 #include "Time.hpp"
 #include <random>
+#include "Enum.hpp"
 
 class World;
 class Dragon : public Enemy {
@@ -19,24 +20,18 @@ public:
 
 	CollisionManager* getCollisionManager() final { return &collisionManager; }
 private:
-	enum class State {
-		FLYING,
-		ATTACKING,
-		DASHING,
-		DAMAGED
-	};
 	bool isChasing, enraged, onRight, isDashing;
 	float deltaTime;
 	int moves[7] = { 0,1,3,1,0,-1,-1 };
 	const float speed, dashSpeed;
-	State state;
+	dragon::EntityState state;
+	AnimationManager animManager;
 	World* gameSpace;
-	AnimationSelector animationSelector;
 	CollisionManager collisionManager;
 	TimeManager timeManager;
 	sf::Vector2f desiredPosition;
 	const sf::Vector2f* playerPosition;
-	sf::Sprite mainSprite, headSprite;
+	sf::Sprite mainSprite, headSprite, dragon_fire;
 
 	void movement();
 	void dashing();
