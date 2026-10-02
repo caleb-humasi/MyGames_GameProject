@@ -10,6 +10,8 @@ Dragon::Dragon(World& _gameSpace) :
 	enraged(false),
 	onRight(true),
 	isDashing(false),
+	isAttacking(false),
+	positioningItself(true),
 	gameSpace(&_gameSpace),
 	playerPosition(&gameSpace->getPlayer()->getPosition()),
 	collisionManager(rectEntity, desiredPosition),
@@ -38,6 +40,8 @@ void Dragon::start() {
 	desiredPosition = rectEntity.position;
 	timeManager.addTimer(Timer{ sf::seconds(0.15f), sf::seconds(0.f), false });
 	timeManager.addTimer(Timer{ sf::seconds(0.3f), sf::seconds(0.f), false });
+	timeManager.addTimer(Timer{ sf::seconds(0.075f), sf::seconds(0.f), true });
+	timeManager.addTimer(Timer{ sf::seconds(10.f), sf::seconds(0.f), true});
 	collisionManager.setActiveCollision(false);
 }
 
@@ -50,9 +54,13 @@ void Dragon::firstUpdate(float dt) {
 	movement();
 	animate();
 	animManager.update(dt);
+	if (!timeManager.getTimer(3).active) {
+		state = dragon::EntityState::NONE;
+	}
 }
 void Dragon::finalUpdate() {
 	timeManager.update(deltaTime);
+	for (Shadow& e : shadows) { timeManager.updateTimer(e.timer, deltaTime); }
 	collision();
 	mainSprite.setPosition(rectEntity.position + gb::dragon::size / 2.f + sf::Vector2f{ 0, (float)moves[animManager.getAnimSelector(0).getAnimation().getFrame() - 1] });
 	headSprite.setPosition(mainSprite.getPosition() + sf::Vector2f(-27.f * mainSprite.getScale().x, -3.5f));
@@ -63,37 +71,13 @@ void Dragon::finalUpdate() {
 
 void Dragon::render(sf::RenderWindow& window) {
 	window.draw(mainSprite);
-	if(state != dragon::EntityState::DASHING)
+	if (state != dragon::EntityState::DASHING)
 		window.draw(headSprite);
-	if(state == dragon::EntityState::ATTACKING)
+	if (state == dragon::EntityState::ATTACKING && !positioningItself)
 		window.draw(dragon_fire);
+	for (Shadow& e : shadows) { window.draw(e.sprite); }
 }
-
-void Dragon::movement() {
-	sf::Vector2f deltaDistance = *playerPosition + gb::player::size / 2.f - getCenter();
-	float distance = sqrtf(deltaDistance.x * deltaDistance.x + deltaDistance.y * deltaDistance.y);
-	if (distance < 200.f) isChasing = true;
-	desiredPosition = rectEntity.position;
-	if (state == dragon::EntityState::DASHING) {
-		isChasing = false;
-		if (onRight) {
-			desiredPosition.x += dashSpeed * gb::FPS * deltaTime;
-			mainSprite.setScale({ -gb::SCALE, gb::SCALE });
-		}
-		else {
-			desiredPosition.x -= dashSpeed * gb::FPS * deltaTime;
-			mainSprite.setScale({ gb::SCALE, gb::SCALE });
-		}
-	}
-
-	if (!isChasing) return;
-	float cosX = deltaDistance.x / distance, sinX = deltaDistance.y / distance;
-
-	desiredPosition = rectEntity.position + sf::Vector2f(cosX, sinX) * (state == dragon::EntityState::ATTACKING ? speed * 1.5f: speed) * deltaTime * gb::FPS;
-	if (deltaDistance.x > 0) { mainSprite.setScale({ -gb::SCALE, gb::SCALE }); }
-	else if (deltaDistance.x < 0) { mainSprite.setScale({ gb::SCALE, gb::SCALE }); }
-}
-void Dragon::dashing(){
+void Dragon::dashing() {
 	sf::Vector2f playerCenter = *playerPosition + gb::player::size / 2.f;
 	static std::mt19937 gen(std::random_device{}());
 	std::bernoulli_distribution dist(0.5f);
@@ -102,11 +86,11 @@ void Dragon::dashing(){
 		float yOffSet1 = dist(gen) ? 0.f : -12.f;
 		float yOffSet2 = dist(gen) ? 0.f : -8.f;
 		if (onRight && !isDashing) {
-			rectEntity.position = sf::Vector2f(playerCenter.x, 105) - rectEntity.size / 2.f - sf::Vector2f(175.f, -yOffSet1 - yOffSet2);
+			rectEntity.position = sf::Vector2f(playerCenter.x, 105) - rectEntity.size / 2.f - sf::Vector2f(175.f, -yOffSet1 - yOffSet2 + 3);
 			isDashing = true;
 		}
-		else if(!onRight && !isDashing){
-			rectEntity.position = sf::Vector2f(playerCenter.x, 105) - rectEntity.size / 2.f + sf::Vector2f(175.f, yOffSet1 + yOffSet2);
+		else if (!onRight && !isDashing) {
+			rectEntity.position = sf::Vector2f(playerCenter.x, 105) - rectEntity.size / 2.f + sf::Vector2f(175.f, yOffSet1 + yOffSet2 + 3);
 			isDashing = true;
 		}
 		if (isDashing) {
@@ -121,8 +105,83 @@ void Dragon::dashing(){
 		}
 	}
 }
+
+void Dragon::movement() {
+	sf::Vector2f deltaDistance;
+	float direction = (float(onRight) - 0.5f) * 2.f;
+	if(state == dragon::EntityState::FLYING)
+		deltaDistance = *playerPosition + gb::player::size / 2.f - getCenter();
+	else if (state == dragon::EntityState::ATTACKING) {
+		deltaDistance = *playerPosition + gb::player::size / 2.f - getCenter() - sf::Vector2f(100 * direction, 12);
+	}
+
+	float distance = sqrtf(deltaDistance.x * deltaDistance.x + deltaDistance.y * deltaDistance.y);
+
+	if (distance < 200.f) isChasing = true;
+	desiredPosition = rectEntity.position;
+	if (state == dragon::EntityState::DASHING) {
+		isChasing = false;
+		desiredPosition.x += dashSpeed * gb::FPS * deltaTime * direction;
+		mainSprite.setScale({ gb::SCALE * (-direction), gb::SCALE});
+	}
+	else if (state == dragon::EntityState::NONE) {
+		isChasing = false;
+		desiredPosition.y -= speed * 2 * gb::FPS * deltaTime;
+	}
+
+	if (!isChasing) return;
+	float cosX = deltaDistance.x / distance, sinX = deltaDistance.y / distance;
+	
+	if (state == dragon::EntityState::ATTACKING) {
+		attacking(distance, direction, sf::Vector2f(cosX, sinX), deltaDistance);
+	}
+	else {
+		desiredPosition = rectEntity.position + sf::Vector2f(cosX, sinX) * speed * deltaTime * gb::FPS;
+		mainSprite.setScale({ gb::SCALE * (direction), gb::SCALE });
+	}
+}
+
+void Dragon::attacking(float distance, float direction, sf::Vector2f normalVector, sf::Vector2f delta){
+	isAttacking = true;
+	if (positioningItself) {
+		desiredPosition = rectEntity.position + normalVector * speed * 3.f * deltaTime * gb::FPS;
+		if (distance - 3.f * speed < 2.25f) {
+			positioningItself = false;
+		}
+		mainSprite.setScale({ gb::SCALE * -(delta.x / std::abs(delta.x)), gb::SCALE});
+	}
+	else {
+		sf::Vector2f playerCenter = *playerPosition + gb::player::size / 2.f;
+		if (onRight && (getCenter().x - playerCenter.x > 120.f)) {
+			onRight = false;
+			positioningItself = true;
+		}
+		else if (!onRight && (getCenter().x - playerCenter.x < -120.f)) {
+			onRight = true;
+			positioningItself = true;
+		}
+		else {
+			desiredPosition.x += dashSpeed / 1.5f * gb::FPS * deltaTime * direction;
+			mainSprite.setScale({ gb::SCALE * (-direction), gb::SCALE });
+		}
+	}
+}
 void Dragon::animate() {
-	animManager.setState((int)state);
+	for (int16_t i(0); i < shadows.size(); ++i) {
+		if (shadows[i].timer.active == false) {
+			shadows.erase(shadows.begin() + i);
+			--i;
+		}
+	}
+	if (state == dragon::EntityState::NONE) { animManager.setState(int(dragon::EntityState::FLYING)); }
+	else { animManager.setState((int)state); }
+	if (state != dragon::EntityState::DASHING) return;
+
+	if (!timeManager.getTimer(2).active) {
+		shadows.push_back(Shadow{ mainSprite, Timer({sf::seconds(0.3f), sf::seconds(0), true})});
+		shadows.back().sprite.setColor(sf::Color(0, 220, 220, 150));
+		timeManager.getTimer(2).active = true;
+	}
 }
 void Dragon::collision() {
 	std::vector<std::shared_ptr<Entity>>* entities = &gameSpace->getEntities();

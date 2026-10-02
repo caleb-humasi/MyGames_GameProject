@@ -13,3 +13,16 @@ void TimeManager::update(float dt) {
 		}
 	}
 }
+
+void TimeManager::updateTimer(Timer& e, float dt)
+{
+	if (e.active) {
+		if (e.passedTime < e.time_limit) {
+			e.passedTime += sf::seconds(dt);
+		}
+		else {
+			e.passedTime = sf::seconds(0.f);
+			e.active = false;
+		}
+	}
+}

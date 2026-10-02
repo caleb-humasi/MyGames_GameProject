@@ -49,7 +49,8 @@ namespace dragon {
 		FLYING,
 		DASHING,
 		ATTACKING,
-		DAMAGED
+		DAMAGED,
+		NONE
 	};
 	enum class CorrespondingLayer {
 		BODY,

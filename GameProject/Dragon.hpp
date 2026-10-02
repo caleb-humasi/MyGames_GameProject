@@ -20,7 +20,11 @@ public:
 
 	CollisionManager* getCollisionManager() final { return &collisionManager; }
 private:
-	bool isChasing, enraged, onRight, isDashing;
+	struct Shadow {
+		sf::Sprite sprite;
+		Timer timer;
+	};
+	bool isChasing, enraged, onRight, isDashing, isAttacking, positioningItself;
 	float deltaTime;
 	int moves[7] = { 0,1,3,1,0,-1,-1 };
 	const float speed, dashSpeed;
@@ -32,9 +36,11 @@ private:
 	sf::Vector2f desiredPosition;
 	const sf::Vector2f* playerPosition;
 	sf::Sprite mainSprite, headSprite, dragon_fire;
+	std::vector<Shadow> shadows;
 
-	void movement();
 	void dashing();
+	void movement();
+	void attacking(float distance, float direction, sf::Vector2f normalVector, sf::Vector2f delta);
 	void animate();
 	void collision();
 };
